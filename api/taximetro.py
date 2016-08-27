@@ -10,9 +10,15 @@ from pymysql.cursors import DictCursor
 from flask import Flask, jsonify, make_response
 from flask_cors import cross_origin
 
+
 QUERY_FIND_TAXI = (
     'SELECT base, idnum, lastname1, lastname2, name, plate, service '
     'FROM taxi WHERE taxi.plate = %s;'
+)
+
+QUERY_GET_REVIEWS = (
+    'SELECT idreview, taxi_idtaxi, rating, content, likes, fbid, fbname '
+    'FROM review WHERE review.taxi_idtaxi = %s;'
 )
 
 
@@ -70,18 +76,27 @@ class TaximetroAPI(object):
     @injectdb
     def find_taxi(self, db, plate):
 
+        # Find taxi
         with db.cursor(DictCursor) as cursor:
             cursor.execute(QUERY_FIND_TAXI, (plate, ))
-            result = cursor.fetchone()
+            taxi = cursor.fetchone()
 
-        if not result:
+        if not taxi:
             return make_response(jsonify({}), 404)
 
-        # Inject temporary dummy data
-        result['stars'] = 0
-        result['reviews'] = []
+        # Fetch related data
+        with db.cursor(DictCursor) as cursor:
+            cursor.execute(QUERY_GET_REVIEWS, (plate, ))
+            reviews = cursor.fetchall()
 
-        return jsonify(result)
+        if reviews:
+            taxi['stars'] = sum(r['rating'] for r in reviews) / len(reviews)
+            taxi['reviews'] = reviews
+        else:
+            taxi['stars'] = 0
+            taxi['reviews'] = []
+
+        return jsonify(taxi)
 
     def not_found(self, error):
         return make_response(jsonify({'error': 'Not found'}), 404)
