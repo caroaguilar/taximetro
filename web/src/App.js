@@ -27,7 +27,7 @@ class App extends Component {
                     </div>
                 </form>
 
-                <Link className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                <Link className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green"
                     to={`/plate/${this.state.licensePlate}`}>
                     Buscar
                 </Link>
