@@ -19,7 +19,7 @@ class ReviewsCard extends Component {
     render() {
         console.log(this.props.reviews)
         return (
-            <div className="review-card mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
+            <div className="review-card mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
                 <div className="mdl-card__title">
                     <h2 className="mdl-card__title-text">Reviews</h2>
                 </div>

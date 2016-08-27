@@ -11,8 +11,8 @@ class ReviewsCard extends Component {
         console.log(this.props.review)
         var review = this.props.review;
         return (
-            <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
-                <h3>{review.fbname}</h3>
+            <div className="review-row mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
+                <h3 className="review-name mdl-typography--headline">{review.fbname}</h3>
                 <p>{review.content}</p>
                 <span>{`Likes: ${review.likes}`}</span>
             </div>

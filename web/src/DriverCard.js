@@ -8,7 +8,7 @@ import profileImage from './images/profile-image.svg'
 class DriverCard extends Component {
     render() {
         return (
-            <div className="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
+            <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
                 <div className="mdl-card__title">
                     <div className="mdl-cell mdl-cell--3-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
                         <img src={profileImage} className="profile-image" alt=""/>
