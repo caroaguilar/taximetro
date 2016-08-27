@@ -7,6 +7,11 @@ Taximetro API
     wget https://bootstrap.pypa.io/get-pip.py
     sudo python3 get-pip.py
 
+   .. note::
+
+      MySQL server package can be mysql-server-5.x.
+      In Ubuntu 14.04 use 5.6, in Ubuntu 16.04 use 5.7.
+
 2) Install dependencies:
 
     sudo pip3 install -r requirements.txt
@@ -24,7 +29,7 @@ Taximetro API
     mysql> GRANT ALL PRIVILEGES ON taximetro.* TO 'taximetro'@'localhost' IDENTIFIED BY 'taximetro';
     mysql> FLUSH PRIVILEGES;
 
-4) Run API:
+5) Run API:
 
     ./taximetro.py
 
