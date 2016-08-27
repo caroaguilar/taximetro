@@ -12,7 +12,7 @@ app = Flask('taximetro')
 def find_taxi(plate):
     return dumps({
         'plate': plate,
-        'starts': 3,
+        'stars': 3,
         'name': 'Carlos Andrés',
         'lastname1': 'Sandi',
         'lastname2': 'Madrigal',
