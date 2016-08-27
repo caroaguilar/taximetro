@@ -8,7 +8,9 @@
   "dependencies": {
     "material-design-lite": "^1.2.0",
     "react": "^15.3.1",
+    "react-cookie": "^0.4.8",
     "react-dom": "^15.3.1",
+    "react-facebook-login": "^3.1.0",
     "react-router": "^2.7.0",
     "react-skylight": "^0.4.0",
     "react-star-rating-component": "^1.0.0",

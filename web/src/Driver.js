@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import FacebookLogin from 'react-facebook-login';
+import Modal from 'react-skylight';
+import cookie from 'react-cookie';
+
 import DriverCard from './DriverCard';
 import ReviewsCard from './ReviewsCard';
 import WriteReview from './WriteReview';
-import Modal from 'react-skylight';
 
 import api from './api/index';
 import './styles/driver.css';
@@ -54,7 +57,13 @@ class Driver extends Component {
                         return (
                             <div className="mdl-color--grey-100 mdl-grid">
                                 <DriverCard {...this.state}
-                                cardOnClick={() => { console.log('holis!!!!');this.refs.reviewsDialog.show()}}/>
+                                cardOnClick={() => {
+                                    if (cookie.load('user')) {
+                                        this.refs.reviewsDialog.show();
+                                    } else {
+                                        this.refs.loginDialog.show();
+                                    }
+                                }}/>
                                 <ReviewsCard reviews={this.state.reviews}/>
                             </div>
                         );
@@ -62,12 +71,20 @@ class Driver extends Component {
                 })()}
                 <Modal ref="reviewsDialog"
                       title={ `Califica el servicio del taxi ${this.state.plate}`}>
-                        <WriteReview plate={this.state.plate}
-                            onReviewSubmitted={() => {
-                                this.refs.reviewsDialog.hide();
-                                this.setState({ updated: true });
-                                this._findTaxi();
-                            }}/>
+                      <WriteReview plate={this.state.plate}
+                        onReviewSubmitted={() => {
+                            this.refs.reviewsDialog.hide();
+                            this.setState({ updated: true });
+                            this._findTaxi();
+                        }}/>
+                </Modal >
+                <Modal ref="loginDialog">
+                    <FacebookLogin
+                        appId="119358528516179"
+                        autoLoad={true}
+                        fields="name,email,picture"
+                        callback={this.responseFacebook}
+                    />
                 </Modal >
             </div>
         );
@@ -80,6 +97,12 @@ class Driver extends Component {
             console.log(JSON.stringify(self.state, 0, 2))
         });
     }
+
+    responseFacebook = (user) => {
+        cookie.save('user', user);
+        this.refs.loginDialog.hide();
+        this.refs.reviewsDialog.show();
+    };
 }
 
 export default Driver;
