@@ -14,7 +14,7 @@ class App extends Component {
     render() {
         return (
             <div className="app">
-                <div className="app-header mdl-color--red">
+                <div className="app-header mdl-color--red-800">
                     <h2 className="mdl-typography--display-4">Taximetro</h2>
                 </div>
                 <form action="#" className="search-box">

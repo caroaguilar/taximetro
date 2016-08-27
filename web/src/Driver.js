@@ -34,7 +34,7 @@ class Driver extends Component {
         var stars = this.state.stars;
         return (
             <div>
-                <header className="mdl-color--red mdl-layout__header">
+                <header className="mdl-color--red-800 mdl-layout__header">
                     <div className="mdl-layout__header-row">
                         <div className="mdl-layout-spacer"></div>
                         <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
