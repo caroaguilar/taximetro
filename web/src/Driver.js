@@ -50,10 +50,19 @@ class Driver extends Component {
                         </div>
                     </div>
                 </header>
-                <div className="mdl-color--grey-100 mdl-grid">
-                    <DriverCard {...this.state}/>
-                    <ReviewsCard reviews={this.state.reviews}/>
-                </div>
+                {(() => {
+                    if (this.state.isLoading) {
+                        return (<div
+                            className="mdl-progress mdl-js-progress mdl-progress__indeterminate"/>);
+                    } else {
+                        return (
+                            <div className="mdl-color--grey-100 mdl-grid">
+                                <DriverCard {...this.state}/>
+                                <ReviewsCard reviews={this.state.reviews}/>
+                            </div>
+                        );
+                    }
+                })()}
             </div>
         );
     }
