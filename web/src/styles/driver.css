@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.dv-star-rating-star {
+    font-size: 40px;
+}
+
 .profile-image {
     height: 150px;
     width: 150px;
