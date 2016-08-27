@@ -21,13 +21,22 @@ QUERY_GET_REVIEWS = (
     'SELECT '
     'idreview, taxi_idtaxi, rating, content, likes, fbid, fbname '
     'FROM review WHERE review.taxi_idtaxi = %s '
-    'ORDER BY rating DESC;'
+    'ORDER BY likes DESC, idreview ASC;'
 )
 
 QUERY_SUBMIT_REVIEW = (
     'INSERT INTO review '
     '(taxi_idtaxi, rating, content, likes, fbid, fbname) '
     'VALUES (%s, %s, %s, %s, %s, %s);'
+)
+
+QUERY_GET_REVIEW = (
+    'SELECT idreview, likes '
+    'FROM review WHERE idreview = %s;'
+)
+
+QUERY_LIKE_REVIEW = (
+    'UPDATE review SET likes = %s WHERE idreview = %s LIMIT 1;'
 )
 
 
@@ -80,6 +89,10 @@ class TaximetroAPI(object):
             ), (
                 '/api/submit_review/<string:plate>',
                 self.submit_review,
+                'POST'
+            ), (
+                '/api/like_review/<int:idreview>',
+                self.like_review,
                 'POST'
             )
         ]
@@ -148,6 +161,27 @@ class TaximetroAPI(object):
                     payload['fbid'],
                     payload['fbname']
                 )
+            )
+        db.commit()
+
+        return jsonify({'result': 'ok'})
+
+    @cross_origin()
+    @injectdb
+    def like_review(self, db, idreview):
+
+        with db.cursor(DictCursor) as cursor:
+            cursor.execute(QUERY_GET_REVIEW, (idreview, ))
+            review = cursor.fetchone()
+
+        if not review:
+            return make_response(jsonify({'error': 'Review not found'}), 404)
+
+        likes = review['likes'] + 1
+
+        with db.cursor(DictCursor) as cursor:
+            cursor.execute(
+                QUERY_LIKE_REVIEW, (likes, idreview)
             )
         db.commit()
 
