@@ -7,18 +7,21 @@ from os.path import abspath, dirname, join
 from pymysql import connect, cursors
 from pymysql.cursors import DictCursor
 
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, request
 from flask_cors import cross_origin
 
 
 QUERY_FIND_TAXI = (
-    'SELECT base, idnum, lastname1, lastname2, name, plate, service '
+    'SELECT '
+    'idtaxi, base, idnum, lastname1, lastname2, name, plate, service '
     'FROM taxi WHERE taxi.plate = %s;'
 )
 
 QUERY_GET_REVIEWS = (
-    'SELECT idreview, taxi_idtaxi, rating, content, likes, fbid, fbname '
-    'FROM review WHERE review.taxi_idtaxi = %s;'
+    'SELECT '
+    'idreview, taxi_idtaxi, rating, content, likes, fbid, fbname '
+    'FROM review WHERE review.taxi_idtaxi = %s '
+    'ORDER BY rating DESC;'
 )
 
 
@@ -66,11 +69,16 @@ class TaximetroAPI(object):
         routes = [
             (
                 '/api/find_taxi/<string:plate>',
-                self.find_taxi
+                self.find_taxi,
+                'GET'
+            ), (
+                '/api/submit_review/<string:plate>',
+                self.submit_review,
+                'POST'
             )
         ]
-        for endpoint, method in routes:
-            self.app.route(endpoint, methods=['GET'])(method)
+        for endpoint, method, verb in routes:
+            self.app.route(endpoint, methods=[verb])(method)
 
     @cross_origin()
     @injectdb
@@ -82,11 +90,11 @@ class TaximetroAPI(object):
             taxi = cursor.fetchone()
 
         if not taxi:
-            return make_response(jsonify({}), 404)
+            return make_response(jsonify({'error': 'Taxi not found'}), 404)
 
         # Fetch related data
         with db.cursor(DictCursor) as cursor:
-            cursor.execute(QUERY_GET_REVIEWS, (plate, ))
+            cursor.execute(QUERY_GET_REVIEWS, (taxi['idtaxi'], ))
             reviews = cursor.fetchall()
 
         if reviews:
@@ -96,7 +104,36 @@ class TaximetroAPI(object):
             taxi['stars'] = 0
             taxi['reviews'] = []
 
+        del taxi['idtaxi']
         return jsonify(taxi)
+
+    @cross_origin()
+    @injectdb
+    def submit_review(self, db, plate):
+        # Validate payload
+        payload = request.get_json()
+
+        if sorted(payload) != sorted(['rating', 'content', 'fbid', 'fbname']):
+            return make_response(jsonify({'error': 'Invalid payload'}), 400)
+
+        if not 0 <= payload['rating'] <= 5:
+            return make_response(jsonify({'error': 'Invalid rating'}), 400)
+
+        if not all(payload[field] for field in ['content', 'fbid', 'fbname']):
+            return make_response(jsonify({'error': 'Missing content'}), 400)
+
+        # Find taxi
+        with db.cursor(DictCursor) as cursor:
+            cursor.execute(QUERY_FIND_TAXI, (plate, ))
+            taxi = cursor.fetchone()
+
+        if not taxi:
+            return make_response(jsonify({'error': 'Taxi not found'}), 404)
+
+        # TODO: Insert into database.
+        # taxi.idtaxi
+
+        return jsonify({'result': 'ok'})
 
     def not_found(self, error):
         return make_response(jsonify({'error': 'Not found'}), 404)
