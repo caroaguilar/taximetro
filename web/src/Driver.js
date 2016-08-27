@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StarRating from 'react-star-rating-component';
 import DriverCard from './DriverCard';
+import ReviewsCard from './ReviewsCard';
 
 import api from './api/index';
 import './styles/driver.css';
@@ -49,7 +50,10 @@ class Driver extends Component {
                         </div>
                     </div>
                 </header>
-                <DriverCard {...this.state}/>
+                <div className="mdl-color--grey-100 mdl-grid">
+                    <DriverCard {...this.state}/>
+                    <ReviewsCard reviews={this.state.reviews}/>
+                </div>
             </div>
         );
     }
