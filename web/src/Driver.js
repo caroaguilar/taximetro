@@ -67,7 +67,7 @@ class Driver extends Component {
                     }
                 })()}
                 <Modal ref="reviewsDialog"
-                      title={ `Califica a ${this.state.name}`}>
+                      title={ `Califica el servicio del taxi ${this.state.plate}`}>
                         <WriteReview/>
                 </Modal >
             </div>
