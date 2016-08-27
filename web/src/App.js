@@ -17,11 +17,11 @@ class App extends Component {
                 <div className="app-header mdl-color--red-800">
                     <h2 className="mdl-typography--display-4">Taximetro</h2>
                 </div>
-                <form action="#" className="search-box">
-                    <div className="mdl-textfield mdl-js-textfield">
+                <form action="#">
+                    <div className="search-box mdl-textfield mdl-js-textfield">
                         <input className="mdl-textfield__input"
                             type="text" id="search-input"
-                            placeholder="Ingrese el número de placa..."
+                            placeholder="Ingrese el número de placa... Ej. TSJ00001"
                             value={this.state.licensePlate}
                             onChange={(e) => {this._handleSearchValueChange(e)}}/>
                     </div>

@@ -33,7 +33,7 @@ class Driver extends Component {
     render() {
         var stars = this.state.stars;
         return (
-            <div>
+            <div className="main-wrapper">
                 <header className="mdl-color--red-800 mdl-layout__header">
                     <div className="mdl-layout__header-row">
                         <div className="mdl-layout-spacer"></div>
@@ -48,7 +48,7 @@ class Driver extends Component {
                         </div>
                     </div>
                 </header>
-                <div className="mdl-grid">
+                <div className="mdl-color--grey-100 mdl-grid">
                     <div className="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
                         <div className="mdl-card__title">
                             <div className="mdl-cell mdl-cell--2-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
