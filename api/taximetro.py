@@ -24,6 +24,12 @@ QUERY_GET_REVIEWS = (
     'ORDER BY rating DESC;'
 )
 
+QUERY_SUBMIT_REVIEW = (
+    'INSERT INTO review '
+    '(taxi_idtaxi, rating, content, likes, fbid, fbname) '
+    'VALUES (%s, %s, %s, %s, %s, %s);'
+)
+
 
 def injectdb(method):
     """
@@ -130,8 +136,20 @@ class TaximetroAPI(object):
         if not taxi:
             return make_response(jsonify({'error': 'Taxi not found'}), 404)
 
-        # TODO: Insert into database.
-        # taxi.idtaxi
+        # Insert into database
+        with db.cursor(DictCursor) as cursor:
+            cursor.execute(
+                QUERY_SUBMIT_REVIEW,
+                (
+                    taxi['idtaxi'],
+                    payload['rating'],
+                    payload['content'],
+                    payload['likes'],
+                    payload['fbid'],
+                    payload['fbname']
+                )
+            )
+        db.commit()
 
         return jsonify({'result': 'ok'})
 
