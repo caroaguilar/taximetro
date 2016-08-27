@@ -5,6 +5,17 @@ import Review from './Review';
 import './styles/reviews.css';
 
 class ReviewsCard extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            reviews: []
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.props = nextProps;
+        this.setState({ reviews: this.props.reviews});
+    }
+
     render() {
         console.log(this.props.reviews)
         return (

@@ -36,6 +36,7 @@ class WriteReview extends Component {
         );
     }
     _submitReview() {
+        var self = this;
         api.submitReview({
             plate: this.props.plate,
             review: {
@@ -44,9 +45,10 @@ class WriteReview extends Component {
                 'fbid': 100009410315274,
                 'fbname': 'Carlos Jenkins'
             }
-        }, function(err, result) {
-            console.log('####error: ', err)
-            console.log('####result: ', result)
+        }, function(err, res) {
+            if (!err) {
+                self.props.onReviewSubmitted();
+            }
         });
     }
 }

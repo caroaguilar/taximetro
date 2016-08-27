@@ -26,11 +26,7 @@ class Driver extends Component {
     }
 
     componentDidMount() {
-        var self = this;
-        api.findTaxi(this.props.params.licensePlate, function(driver) {
-            self.setState(Object.assign(driver, { isLoading: false }))
-            console.log(JSON.stringify(self.state, 0, 2))
-        });
+        this._findTaxi();
     }
 
     render() {
@@ -66,10 +62,23 @@ class Driver extends Component {
                 })()}
                 <Modal ref="reviewsDialog"
                       title={ `Califica el servicio del taxi ${this.state.plate}`}>
-                        <WriteReview plate={this.state.plate}/>
+                        <WriteReview plate={this.state.plate}
+                            onReviewSubmitted={() => {
+                                this.refs.reviewsDialog.hide();
+                                this.setState({ updated: true });
+                                this._findTaxi();
+                            }}/>
                 </Modal >
             </div>
         );
+    }
+
+    _findTaxi() {
+        var self = this;
+        api.findTaxi(this.props.params.licensePlate, function(driver) {
+            self.setState(Object.assign(driver, { isLoading: false }))
+            console.log(JSON.stringify(self.state, 0, 2))
+        });
     }
 }
 
