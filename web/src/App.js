@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+
 import './styles/app.css';
 
 class App extends Component {
-  render() {
-    return (
-        <div className="app">
-            <div className="app-header mdl-color--red">
-                <h2 className="mdl-typography--display-4">Taximetro</h2>
-            </div>
-            <form action="#" className="search-box">
-                <div className="mdl-textfield mdl-js-textfield">
-                    <input className="mdl-textfield__input" type="text" id="search-input"/>
-                    <label className="mdl-textfield__label" htmlFor="search-input">Ingrese el número de placa...</label>
-                </div>
-            </form>
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            licensePlate: ''
+        }
+    }
 
-            <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                Buscar
-            </button>
-        </div>
-    );
-  }
+    render() {
+        return (
+            <div className="app">
+                <div className="app-header mdl-color--red">
+                    <h2 className="mdl-typography--display-4">Taximetro</h2>
+                </div>
+                <form action="#" className="search-box">
+                    <div className="mdl-textfield mdl-js-textfield">
+                        <input className="mdl-textfield__input"
+                            type="text" id="search-input"
+                            placeholder="Ingrese el número de placa..."
+                            value={this.state.licensePlate}
+                            onChange={(e) => {this._handleSearchValueChange(e)}}/>
+                    </div>
+                </form>
+
+                <Link className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                    to={`/plate/${this.state.licensePlate}`}>
+                    Buscar
+                </Link>
+            </div>
+        );
+    }
+
+    _handleSearchValueChange(e) {
+            this.setState({ licensePlate: e.target.value });
+    }
 }
 
 export default App;
