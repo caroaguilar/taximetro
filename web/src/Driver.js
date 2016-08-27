@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import StarRating from 'react-star-rating-component';
 import DriverCard from './DriverCard';
 import ReviewsCard from './ReviewsCard';
+import Modal from 'react-skylight';
 
 import api from './api/index';
 import './styles/driver.css';
@@ -57,12 +58,17 @@ class Driver extends Component {
                     } else {
                         return (
                             <div className="mdl-color--grey-100 mdl-grid">
-                                <DriverCard {...this.state}/>
+                                <DriverCard {...this.state}
+                                cardOnClick={() => { console.log('holis!!!!');this.refs.reviewsDialog.show()}}/>
                                 <ReviewsCard reviews={this.state.reviews}/>
                             </div>
                         );
                     }
                 })()}
+                <Modal ref="reviewsDialog"
+                      title={ `Califica a ${this.state.name}`}>
+                        I have callbacks!
+                </Modal >
             </div>
         );
     }

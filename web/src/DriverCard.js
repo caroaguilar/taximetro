@@ -35,9 +35,11 @@ class DriverCard extends Component {
                     </div>
                 </div>
                 <div className="mdl-card__actions mdl-card--border">
-                    <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                      Write Review
-                    </a>
+                        <button
+                        onClick={this.props.cardOnClick}
+                        className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                      Calificar taxista
+                    </button>
                 </div>
                 <div className="mdl-card__menu">
                     {this.props.stars && <StarRating name={"rating"}
