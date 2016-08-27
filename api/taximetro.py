@@ -1,36 +1,101 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from json import dumps
+from json import loads
+from os.path import abspath, dirname, join
 
-from flask import Flask
+from pymysql import connect, cursors
+
+from flask import Flask, jsonify, make_response
 from flask_cors import cross_origin
 
 
-app = Flask('taximetro')
+def injectdb(method):
+    """
+    Simple decorator to handle the creation and destruction of the database
+    connection.
+    """
+    def replacement(self, *args, **kwargs):
+        db = None
+        try:
+            db = connect(
+                host=self.config.get('host', 'localhost'),
+                user=self.config.get('user', 'tsesql'),
+                password=self.config.get('password', ''),
+                db=self.config.get('db', 'tsesql'),
+                charset='utf8mb4',
+                cursorclass=cursors.DictCursor
+            )
+            return method(self, db, *args, **kwargs)
+        finally:
+            if db is not None:
+                db.close()
+
+    replacement.__name__ = method.__name__
+    return replacement
 
 
-@app.route('/api/find_taxi/<string:plate>')
-@cross_origin()
-def find_taxi(plate):
-    return dumps({
-        'plate': plate,
-        'stars': 3,
-        'name': 'Carlos Andrés',
-        'lastname1': 'Sandi',
-        'lastname2': 'Madrigal',
-        'idnum': '113460645',
-        'base': '001123 Grecia',
-        'service': 'Sedan',
-        'reviews': [
-            {
-                'content': 'Excelente servicio de Taxi!',
-                'user': 'Antonio Restrepo',
-                'likes': 10
-            },
-            {
-                'content': 'La maría está alterada',
-                'user': 'Juliana Perez',
-                'likes': 6
-            },
+class TaximetroAPI(object):
+    """
+    Taximetro Python-Flask REST API example.
+    """
+
+    def __init__(self, ):
+
+        # Read configuration
+        with open(join(dirname(abspath(__file__)), 'settings.json')) as fd:
+            self.config = loads(fd.read())
+
+        # Configure Flask application
+        self.app = Flask('taximetro', static_folder=None)
+        self.app.errorhandler(404)(self.not_found)
+
+        # Define routes
+        routes = [
+            (
+                '/api/find_taxi/<string:plate>',
+                self.find_taxi
+            )
         ]
-    })
+        for endpoint, method in routes:
+            self.app.route(endpoint, methods=['GET'])(method)
+
+    @cross_origin()
+    @injectdb
+    def find_taxi(self, db, plate):
+        return jsonify({
+            'plate': plate,
+            'stars': 3,
+            'name': 'Carlos Andrés',
+            'lastname1': 'Sandi',
+            'lastname2': 'Madrigal',
+            'idnum': '113460645',
+            'base': '001123 Grecia',
+            'service': 'Sedan',
+            'reviews': [
+                {
+                    'content': 'Excelente servicio de Taxi!',
+                    'user': 'Antonio Restrepo',
+                    'likes': 10
+                },
+                {
+                    'content': 'La maría está alterada',
+                    'user': 'Juliana Perez',
+                    'likes': 6
+                },
+            ]
+        })
+
+    def not_found(self, error):
+        return make_response(jsonify({'error': 'Not found'}), 404)
+
+    def run(self):
+        self.app.run(
+            port=self.config.get('api_port', 5000),
+            debug=self.config.get('debug', False),
+        )
+
+
+if __name__ == '__main__':
+    app = TaximetroAPI()
+    app.run()

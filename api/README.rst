@@ -14,7 +14,7 @@ Taximetro API
 3) Create data schema and data.
 
     pushd data
-    python3 extractor.py
+    ./extractor.py
     popd
 
 4) Create user and database:
@@ -26,13 +26,18 @@ Taximetro API
 
 4) Run API:
 
-    FLASK_APP=taximetro.py python3 -m flask run
+    ./taximetro.py
 
 
-Note: In case you require to inspect the database you can get it from:
+.. note::
 
-    http://datos.ctp.go.cr/dashboards/9261/taxis/
+    In case you require to inspect the database you can get it from:
 
-   The database can be downloaded as CSV using the following url:
+        http://datos.ctp.go.cr/dashboards/9261/taxis/
 
-    http://datos.ctp.go.cr/rest/datastreams/91182/data.csv
+    The database can be downloaded as CSV using the following url:
+
+        http://datos.ctp.go.cr/rest/datastreams/91182/data.csv
+
+    Also, depending on your setup you may need to modify the settings.json
+    file for the API to launch.

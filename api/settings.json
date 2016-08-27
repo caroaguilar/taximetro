@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "user": "taximetro",
+    "password": "taximetro",
+    "db": "taximetro",
+    "api_port": 5000,
+    "debug": false
+}
