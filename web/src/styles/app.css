@@ -8,6 +8,13 @@
   color: white;
 }
 
+.app-header h2 {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
 .mdl-textfield {
     margin: 50px;
     width: 25%;
@@ -16,4 +23,12 @@
 .mdl-textfield__input {
     font-size: 20px;
     text-align: center;
+}
+
+
+.logo-image {
+    width: 100px;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 1em;
 }

@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 
 import './styles/app.css';
 
+import logoImage from './images/logo.svg'
+
 class App extends Component {
     constructor(props, context) {
         super(props, context);
@@ -15,6 +17,7 @@ class App extends Component {
         return (
             <div className="app">
                 <div className="app-header mdl-color--red-800">
+                    <img src={logoImage} className="logo-image" alt=""/>
                     <h2 className="mdl-typography--display-4">Taximetro</h2>
                 </div>
                 <form action="#">
