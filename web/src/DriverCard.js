@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import StarRating from 'react-star-rating-component';
 
-import api from './api/index';
 import './styles/driver.css';
 
 import profileImage from './images/profile-image.svg'

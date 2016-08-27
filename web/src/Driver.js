@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import StarRating from 'react-star-rating-component';
 import DriverCard from './DriverCard';
 import ReviewsCard from './ReviewsCard';
 import WriteReview from './WriteReview';
@@ -8,7 +7,6 @@ import Modal from 'react-skylight';
 import api from './api/index';
 import './styles/driver.css';
 
-import profileImage from './images/profile-image.svg'
 
 class Driver extends Component {
     constructor(props, context) {

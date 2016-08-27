@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import StarRating from 'react-star-rating-component';
 import _ from 'underscore';
 import Review from './Review';
 
-import api from './api/index';
 import './styles/reviews.css';
-
-import profileImage from './images/profile-image.svg'
 
 class ReviewsCard extends Component {
     render() {
