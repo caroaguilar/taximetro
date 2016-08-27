@@ -144,7 +144,7 @@ class TaximetroAPI(object):
                     taxi['idtaxi'],
                     payload['rating'],
                     payload['content'],
-                    payload['likes'],
+                    0,
                     payload['fbid'],
                     payload['fbname']
                 )
