@@ -4,13 +4,14 @@ Taximetro Web
 1) Install Node and React:
 
     brew install node
+
     npm install --save react react-dom
 
 2) Install dependencies:
 
     npm install
 
-3) Build and run the webpage::
+3) Build and run the webpage:
 
     npm start
 
