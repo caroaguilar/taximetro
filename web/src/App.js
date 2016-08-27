@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="app">
+            <div className="app-header mdl-color--red">
+                <h2 className="mdl-typography--display-4">Taximetro</h2>
+            </div>
+            <form action="#" className="search-box">
+                <div className="mdl-textfield mdl-js-textfield">
+                    <input className="mdl-textfield__input" type="text" id="search-input"/>
+                    <label className="mdl-textfield__label" htmlFor="search-input">Ingrese el número de placa...</label>
+                </div>
+            </form>
+
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Buscar
+            </button>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
     );
   }
 }
