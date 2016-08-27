@@ -11,13 +11,16 @@ class DriverCard extends Component {
         return (
             <div className="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
                 <div className="mdl-card__title">
-                    <div className="mdl-cell mdl-cell--2-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+                    <div className="mdl-cell mdl-cell--3-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
                         <img src={profileImage} className="profile-image" alt=""/>
+                    </div>
+                    <div className="mdl-cell mdl-cell--3-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+                        <h2 className="mdl-typography--display-1">{this.props.plate}</h2>
                     </div>
                 </div>
                 <div className="mdl-card__supporting-text">
                     <div className="mdl-cell mdl-cell--10-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-                        <h2 className="mdl-typography--display-2">{
+                        <h2 className="mdl-typography--display-1">{
                             this.props.name + ' ' + this.props.lastname1 + ' ' + this.props.lastname2
                         }</h2>
                     </div>
@@ -39,7 +42,6 @@ class DriverCard extends Component {
                 <div className="mdl-card__menu">
                     {this.props.stars && <StarRating name={"rating"}
                         value={this.props.stars} editing={false}/>}
-                    <h2 className="mdl-card__title-text">{this.props.plate}</h2>
                 </div>
             </div>
         );
