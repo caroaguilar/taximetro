@@ -5,9 +5,15 @@ from json import loads
 from os.path import abspath, dirname, join
 
 from pymysql import connect, cursors
+from pymysql.cursors import DictCursor
 
 from flask import Flask, jsonify, make_response
 from flask_cors import cross_origin
+
+QUERY_FIND_TAXI = (
+    'SELECT base, idnum, lastname1, lastname2, name, plate, service '
+    'FROM taxi WHERE taxi.plate = %s;'
+)
 
 
 def injectdb(method):
@@ -63,28 +69,19 @@ class TaximetroAPI(object):
     @cross_origin()
     @injectdb
     def find_taxi(self, db, plate):
-        return jsonify({
-            'plate': plate,
-            'stars': 3,
-            'name': 'Carlos Andrés',
-            'lastname1': 'Sandi',
-            'lastname2': 'Madrigal',
-            'idnum': '113460645',
-            'base': '001123 Grecia',
-            'service': 'Sedan',
-            'reviews': [
-                {
-                    'content': 'Excelente servicio de Taxi!',
-                    'user': 'Antonio Restrepo',
-                    'likes': 10
-                },
-                {
-                    'content': 'La maría está alterada',
-                    'user': 'Juliana Perez',
-                    'likes': 6
-                },
-            ]
-        })
+
+        with db.cursor(DictCursor) as cursor:
+            cursor.execute(QUERY_FIND_TAXI, (plate, ))
+            result = cursor.fetchone()
+
+        if not result:
+            return make_response(jsonify({}), 404)
+
+        # Inject temporary dummy data
+        result['stars'] = 0
+        result['reviews'] = []
+
+        return jsonify(result)
 
     def not_found(self, error):
         return make_response(jsonify({'error': 'Not found'}), 404)
