@@ -52,7 +52,7 @@ class Driver extends Component {
                             className="mdl-progress mdl-js-progress mdl-progress__indeterminate"/>);
                     } else {
                         return (
-                            <div className="mdl-color--grey-100 review-page">
+                            <div className="mdl-color--grey-100 driver-page">
                                 <DriverCard {...this.state}
                                 cardOnClick={() => {
                                     if (cookie.load('user')) {

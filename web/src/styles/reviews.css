@@ -1,4 +1,7 @@
 .review-card {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1em;
 }
 
 .review-name {

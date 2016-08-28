@@ -1,4 +1,7 @@
 .driver-card {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1em;
 }
 
 .driver-rating {
@@ -26,4 +29,8 @@
 .profile-image {
     height: 150px;
     width: 150px;
+}
+
+.driver-page {
+    padding-top: 1em;
 }
