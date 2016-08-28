@@ -6,10 +6,19 @@
 
 .review-name {
     margin: 0 0 10px;
+    text-decoration: none;
 }
 
 .review-row {
     height: 50px;
     padding: 10px;
     text-align: left;
+}
+
+.review-user-image {
+    width: 1.5em;
+    height: 1.5em;
+    display: inline;
+    margin-right: 0.3em;
+    vertical-align: bottom;
 }
