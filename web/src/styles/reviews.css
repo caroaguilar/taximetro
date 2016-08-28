@@ -32,3 +32,9 @@
     margin-top: 1em;
     font-size: 4em;
 }
+
+.user-review-stars {
+    font-size: 2em;
+    margin-top: -1em;
+    margin-bottom: 0.5em;
+}

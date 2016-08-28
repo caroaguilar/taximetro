@@ -20,7 +20,7 @@ class ReviewsCard extends Component {
                     <img className="review-user-image" alt="" src={`http://graph.facebook.com/${review.fbid}/picture?type=square`}/>
                     {review.fbname}
                 </a>
-                <StarRating name={"rating"} value={review.rating} editing={false}/>
+                <StarRating className="user-review-stars" name={"rating"} value={review.rating} editing={false}/>
                 <p>{review.content}</p>
                 <button className="mdl-button mdl-js-button mdl-button--primary"
                         onClick={() => { this._likeReview(review) }}>
