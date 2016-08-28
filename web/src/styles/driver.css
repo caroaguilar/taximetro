@@ -2,6 +2,11 @@
     font-size: 40px;
 }
 
+.login-wrapper {
+    margin-top: 15px;
+    text-align: center;
+}
+
 .profile-image {
     height: 150px;
     width: 150px;

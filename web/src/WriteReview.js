@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StarRating from 'react-star-rating-component';
+import cookie from 'react-cookie';
 
 import api from './api/index';
 import './styles/reviews.css';
@@ -37,19 +38,23 @@ class WriteReview extends Component {
     }
     _submitReview() {
         var self = this;
-        api.submitReview({
-            plate: this.props.plate,
-            review: {
-                'rating': this.state.stars,
-                'content': this.state.reviewContent,
-                'fbid': 100009410315274,
-                'fbname': 'Carlos Jenkins'
-            }
-        }, function(err, res) {
-            if (!err) {
-                self.props.onReviewSubmitted();
-            }
-        });
+        var user = cookie.load('user');
+
+        if (this.state.reviewContent && this.state.stars) {
+            api.submitReview({
+                plate: this.props.plate,
+                review: {
+                    'rating': this.state.stars,
+                    'content': this.state.reviewContent,
+                    'fbid': user.id,
+                    'fbname': user.name
+                }
+            }, function(err, res) {
+                if (!err) {
+                    self.props.onReviewSubmitted();
+                }
+            });
+        }
     }
 }
 

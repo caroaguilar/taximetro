@@ -78,13 +78,16 @@ class Driver extends Component {
                             this._findTaxi();
                         }}/>
                 </Modal >
-                <Modal ref="loginDialog">
-                    <FacebookLogin
-                        appId="119358528516179"
-                        autoLoad={true}
-                        fields="name,email,picture"
-                        callback={this.responseFacebook}
-                    />
+                <Modal ref="loginDialog"
+                    title={"Debes loguearte para escribir una calificacion"}>
+                    <div className="login-wrapper">
+                        <FacebookLogin
+                            appId="119358528516179"
+                            autoLoad={true}
+                            fields="name,email,picture"
+                            callback={this.responseFacebook}
+                        />
+                    </div>
                 </Modal >
             </div>
         );
