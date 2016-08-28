@@ -16,7 +16,7 @@ class WriteReview extends Component {
 
     render() {
         return (
-            <div className="">
+            <div className="write-review">
                 <textarea className="mdl-textfield__input"
                     defaultValue={this.state.reviewContent}
                     placeholder={"Que te pareció el servicio ofrecido?"}
