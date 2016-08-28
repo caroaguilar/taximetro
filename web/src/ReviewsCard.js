@@ -17,7 +17,6 @@ class ReviewsCard extends Component {
     }
 
     render() {
-        console.log(this.props.reviews)
         return (
             <div className="review-card mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
                 <div className="mdl-card__title">

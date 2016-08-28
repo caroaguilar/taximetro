@@ -94,7 +94,6 @@ class Driver extends Component {
         var self = this;
         api.findTaxi(this.props.params.licensePlate, function(driver) {
             self.setState(Object.assign(driver, { isLoading: false }))
-            console.log(JSON.stringify(self.state, 0, 2))
         });
     }
 

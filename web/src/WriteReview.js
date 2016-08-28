@@ -15,7 +15,6 @@ class WriteReview extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="">
                 <textarea className="mdl-textfield__input"

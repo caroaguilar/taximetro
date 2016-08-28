@@ -8,7 +8,6 @@ import profileImage from './images/profile-image.svg'
 
 class ReviewsCard extends Component {
     render() {
-        console.log(this.props.review)
         var review = this.props.review;
         return (
             <div className="review-row mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
