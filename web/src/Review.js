@@ -8,7 +8,7 @@ class ReviewsCard extends Component {
         var review = this.props.review;
         return (
             <div className="review-row mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
-                <a className="review-name mdl-button mdl-js-button mdl-button--primary mdl-typography--headline "
+                <a className="review-name mdl-typography--headline "
                     href={`https://www.facebook.com/profile.php?id=${review.fbid}`}>
                     {review.fbname}
                 </a>
