@@ -30,7 +30,7 @@ class ReviewsCard extends Component {
                         </h2>
                     }
                     {_.map(this.props.reviews, function(r) {
-                        return <Review review={r}/>;
+                        return <Review key={r.idreview} review={r}/>;
                     })}
                 </div>
             </div>
