@@ -50,9 +50,9 @@ def injectdb(method):
         try:
             db = connect(
                 host=self.config.get('host', 'localhost'),
-                user=self.config.get('user', 'tsesql'),
+                user=self.config.get('user', 'taximetro'),
                 password=self.config.get('password', ''),
-                db=self.config.get('db', 'tsesql'),
+                db=self.config.get('db', 'taximetro'),
                 charset='utf8mb4',
                 cursorclass=cursors.DictCursor
             )
