@@ -32,12 +32,14 @@ class ReviewsCard extends Component {
 
     _likeReview(review) {
         var self = this;
-        api.addLike({idReview: review.idreview}, function(err, res) {
-            self.props.onLikeSubmitted();
-            self.setState({
-                likeLabel: 'Liked'
+        if (this.state.likeLabel === 'Likes') {
+            api.addLike({idReview: review.idreview}, function(err, res) {
+                self.props.onLikeSubmitted();
+                self.setState({
+                    likeLabel: 'Liked'
+                });
             });
-        })
+        }
     }
 }
 
