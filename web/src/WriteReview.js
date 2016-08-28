@@ -21,7 +21,7 @@ class WriteReview extends Component {
                 <textarea className="mdl-textfield__input"
                     defaultValue={this.state.reviewContent}
                     placeholder={"Que te pareció el servicio ofrecido?"}
-                    onClick={(e)=> { this.setState({reviewContent: e.target.value })}}
+                    onChange={(e)=> { this.setState({reviewContent: e.target.value })}}
                     name="reviewContent" rows={5}/>
                 <h2 className="mdl-typography--headline">Calificación:</h2>
                 <StarRating name={"rating"}
