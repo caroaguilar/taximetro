@@ -1,4 +1,4 @@
-var baseUrl = 'http://localhost:5000';
+var baseUrl = 'http://taximetro.co.cr:5000';
 
 module.exports = {
     findTaxi: function(plate, callback) {
@@ -20,6 +20,23 @@ module.exports = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(params.review)
+        }).then(function(response) {
+            return response.json()
+        }).then(function(json) {
+            callback(null, json);
+        }).catch(function(ex) {
+            callback(ex);
+        });
+    },
+
+    addLike: function(params, callback) {
+        fetch(`${baseUrl}/api/like_review/${params.idReview}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params)
         }).then(function(response) {
             return response.json()
         }).then(function(json) {

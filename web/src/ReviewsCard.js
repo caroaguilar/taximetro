@@ -17,6 +17,7 @@ class ReviewsCard extends Component {
     }
 
     render() {
+        var self = this;
         return (
             <div className="review-card mdl-cell mdl-cell--8-col mdl-cell--12-col-table mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
                 <div className="mdl-card__title">
@@ -30,7 +31,10 @@ class ReviewsCard extends Component {
                         </h2>
                     }
                     {_.map(this.props.reviews, function(r) {
-                        return <Review key={r.idreview} review={r}/>;
+                        return <Review
+                                key={r.idreview}
+                                review={r}
+                                onLikeSubmitted={self.props.onLikeSubmitted}/>;
                     })}
                 </div>
             </div>

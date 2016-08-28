@@ -61,7 +61,10 @@ class Driver extends Component {
                                         this.refs.loginDialog.show();
                                     }
                                 }}/>
-                                <ReviewsCard reviews={this.state.reviews}/>
+                                <ReviewsCard reviews={this.state.reviews}
+                                    onLikeSubmitted={
+                                        () => { this._findTaxi() }
+                                    }/>
                             </div>
                         );
                     }
