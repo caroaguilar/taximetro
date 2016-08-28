@@ -1,5 +1,21 @@
+.driver-card {
+}
+
+.driver-rating {
+    text-align: center;
+}
+
+.driver-rating h2 {
+    text-align: center;
+    font-size: 3em;
+}
+
+.driver-rating .dv-star-rating {
+    margin-top: 1em;
+    font-size: 4em;
+}
+
 .dv-star-rating-star {
-    font-size: 40px;
 }
 
 .login-wrapper {
